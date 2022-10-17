@@ -27,10 +27,69 @@ cad <- meuse$cadmium   # we make a new object "cad" to make things more simple
 zin <- meuse$zinc
 plot(cad,zin)
 
-attach(meuse) # attach is used to access the variables present in the data framework without calling the data frame
+attach(meuse) # attach is used to access the variables present in the data framework without calling the data frame, without using the $ symbol
 plot(cadmium,zinc)
+
 # detach (meuse)
 
 # now we're gonna see the relationship between all the variables 
 # we use "pairs"
 pairs(meuse) # to create a pairwise correlation plot
+attach(meuse) # attach is used to access the variables present in the data framework without calling the data frame, without using the $ symbol
+plot(cadmium,zinc, col= "red", cex= 2)
+# cex means character exageration
+
+14* (14-1)
+pairs(meuse, col="blue")
+
+pairs(meuse[,3:6])
+#how to do quadratic parathenses: ALtGr + è
+
+meuse[,3:6]
+
+pol <- meuse[,3:6]
+pol <- meuse[,3:6]
+pol
+pol[1:6,]
+head(pol)
+#head is the first 6 lines of the dataset
+
+pairs(pol, col="blue", cex = 1.5)
+
+# let's use the names of the columns:
+
+pairs(~ cadmium + copper + lead + zinc, data = meuse)
+# ~ woks as a "="
+
+panel.correlations <- function(x,y, digits =1, prefix ="", cex.cor)
+  
+#panel smoothins useful to put line in the graph
+panel.smoothing <- function (x,y, col = 
+                             
+                             
+panel.histograms <- function(x,y)
+  
+ # use lower/upper/diagonal in order to change panel orientation
+  
+pairs(pol, lower.panel = panel.correlations,
+      upper.panel = panel.smoothing,
+      diag.panel = panel.histograms)
+
+ 
+coordinates(meuse) = ~x + y
+                             
+coordinates(meuse) = ~x + y
+plot(meuse,
+     col = "blue",
+     pch = 17,
+     cex = 1.3
+)
+meuse
+# now coordinates are inserted as a variable as well
+                             
+# spplot is used to plot elements like zinc, lead etc. spread in space
+spplot (meuse, "zinc", main 0 "Concentration of zinc")
+
+# bubble rather than changing colours, you create bubbles to distinguish values
+ 
+ bubble(...)
