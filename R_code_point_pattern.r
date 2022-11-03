@@ -63,3 +63,4 @@ cases_map <- Smooth(covid_planar)
 plot(cases_map, col =cl)
 points(covid_planar)
 plot(coastlines, add = T)
+
