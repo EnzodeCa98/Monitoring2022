@@ -7,3 +7,6 @@ setwd("C:\Users\salde\Desktop\UNIBO\Didattica II\Monitoring\lab") ##change orien
 
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
+plot(p224r63_2011)
+cl <- colorRampPalette(c("black","grey","light grey")) (100) 
+plot(p224r63_2011,col = cl)
