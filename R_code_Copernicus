@@ -14,3 +14,31 @@ library(patchwork) # multiframe for gg plot
 snow <- raster("c_gls_SCE_202012210000_NHEMI_VIIRS_V1.0.1.nc")
 
 #Exercise: based on your previous code, plot the snowcover with ggplot and viridis
+
+snow.cover_plot <- ggplot()+
+  geom_raster(snow, mapping = aes(x=x , y=y, fill = Snow.Cover.Extent)) +
+  scale_fill_viridis(option = "mako")
+  
+  #data are rough due to extension of data --> if we use coordinates data are going to be more precise
+   #so we can have rectangles of the interested area
+  
+  #looking on the graph, we the coordinates x and y to define a rectangule cropping it from the map
+  ext <- c(-20, 70, 20, 75)
+ snow.europe <- crop(snow, ext)
+ 
+ snow.europe_plot <- ggplot()+
+  geom_raster(snow.europe, mapping = aes(x=x, y=y, fill= Snow.Cover.Extent)) +
+  scale_fill_viridis(option = "mako")
+  
+  #Exercise plot the two sets with the patchwork package (snow.cover_plot and snow.europe_plot)
+  
+snow.cover_plot <- ggplot()+
+  geom_raster(snow, mapping = aes(x=x , y=y, fill = Snow.Cover.Extent)) +
+  scale_fill_viridis(option = "mako")
+  
+snow.europe_plot <- ggplot()+
+  geom_raster(snow.europe, mapping = aes(x=x, y=y, fill= Snow.Cover.Extent)) +
+  scale_fill_viridis(option = "mako") 
+  
+snow.cover_plot + snow.europe_plot
+  
