@@ -1,0 +1,16 @@
+## Copernicus data
+
+setwd("/Users/salde/Desktop/UNIBO/Didattica II/Monitoring/lab")
+
+
+install.packages("ncdf4")
+library(ncdf4) #reading .nc files
+library(raster) # usual packages
+library(ggplot2) # beatiful plots
+library(RStoolbox) # RS function
+library(viridis) # legends - colour gamut
+library(patchwork) # multiframe for gg plot
+
+snow <- raster("c_gls_SCE_202012210000_NHEMI_VIIRS_V1.0.1.nc")
+
+#Exercise: based on your previous code, plot the snowcover with ggplot and viridis
