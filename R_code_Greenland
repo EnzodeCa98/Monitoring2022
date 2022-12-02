@@ -1,0 +1,63 @@
+# Time series analysis
+# Greenland increase of temperature
+# Data and code from Emanuela Cosma
+
+# install.packages("rasterVis")
+library(raster)
+library(ggplot2)
+library(RStoolbox)
+library(viridis)
+library(patchwork)
+
+# library(rasterVis)
+
+# library(rgdal)
+
+setwd("/Users/salde/Desktop/UNIBO/Didattica II/Monitoring")
+
+lst_2000 <- raster("lst_2000.tif")
+
+# Exercise plot the lst_2000 with ggplot()
+
+Greenland_2000 <- ggplot() +
+  geom_raster(lst_2000, mapping = aes(x=x, y=y, fill= lst_2000))+
+  scale_fill_viridis(option= "inferno")
+Greenland_2000 # temperatures of Greenland
+
+# higher temperature, lower is the amount of ice, to understand it in a graphic we must reverse the legend,
+# with direction function in viridis
+#alpha in viridis influence transparency, in case of very dark images
+
+Greenland_2000 <- ggplot() +
+  geom_raster(lst_2000, mapping = aes(x=x, y=y, fill= lst_2000))+
+  scale_fill_viridis(option= "inferno", direction = -1, alpha= 0.8)+
+  ggtitle("Temperature2000") #to give the title
+
+#Upload all the data
+lst_2005 <- raster("lst_2005.tif")
+lst_2010 <- raster("lst_2010.tif")
+lst_2015 <- raster("lst_2015.tif")
+
+par(mfrow= c(2,2))
+plot(lst_2000)
+plot(lst_2005)
+plot(lst_2010)
+plot(lst_2015)
+
+#we can upload way more data all together, to save time
+
+rlist <- list.files(pattern = "lst")
+
+#lapply function is going to give functions on a list
+
+#Exercise : list of files= rlist,  function: the function we need to import
+#lapply (x, FUNCTION)
+
+import <- lapply(rlist, raster )
+
+#with the function stack we stacking all the images in one
+
+TGr<- stack(import) #TGr is Temper. of Greenland
+
+plot(TGr) 
+# to plot all the images, that are considered at one
