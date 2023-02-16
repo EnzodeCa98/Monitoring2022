@@ -47,7 +47,7 @@ fcoverlist # 3 images of global FCOVER for the years 2014, 2018,2022
 fcover_rast <- lapply(fcoverlist, raster)
 fcover_rast
 
-##let's create a stack, concatenating the images as a single one
+##let's create a stack, concatenating the files as a single one
 fcover_stack <- stack(fcover_rast)
 fcover_stack
 
