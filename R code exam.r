@@ -1,15 +1,16 @@
-#################### R project for Monitoring Ecosystem Changes and Functioning Exam ##################
+## R project for Monitoring Ecosystem Changes and Functioning Exam ##
 
 
 ## let's install necessary packages
 
-install.packages("raster")     # to import files in R, and for modeling spatial data
-install.packages("ncdf4")      # to open Copernicus data with nc extention
-install.packages("ggplot2")    # to plot data with ggplot function
-install.packages("patchwork")  # to plot together various plots
-install.packages("viridis")    # viridis palette for plots
-install.packages("ggpubr")     #To export ggplots
-install.packages ("RStoolbox") # for remote sensing analysis
+install.packages("raster")      # to import files in R, and for modeling spatial data
+install.packages("ncdf4")       # to open Copernicus data with nc extention
+install.packages("ggplot2")     # to plot data with ggplot function
+install.packages("patchwork")   # to plot together various plots
+install.packages("viridis")     # viridis palette for plots
+install.packages("ggpubr")      #To export ggplots
+install.packages("RStoolbox")   # for remote sensing processing and analysis
+
 
 ## let's recall the packages
 
@@ -19,22 +20,20 @@ library(ggplot2)
 library(patchwork)
 library(viridis)
 library(RStoolbox)
-library(ggpubr) 
+library(ggpubr)
+
 
 ## let's set the working directory
 setwd("C:/Users/salde/Desktop/Monitoring Project")
 
-## The aim of this project it is showing the difference in Extent and Greenness of vegetation,
- # in the island of Borneo, divided among Malaysia, Brunei and Indonesia between 2014, 2018 and 2022.
- 
-## Borneo is famous for its iconic endemic species- such as the Bornean orangutan and the Bornean Pygmy Elephan.
- #However, the island is threatened by deforestation and habitat destruction, in order to make space for palm oil plantations,
-
-# It would be interesting looking how vegetation changed in the past 8 years
+## the aim of this project it is showing the difference in extent and greenness,
+ # in the island of Borneo, divided among Malaysia, Brunei and Indonesia between 2014, 2018 and 2022
+## Borneo is famous for its iconic endemic species, above all orangutan, but it is threatened by high deforestation rates,
+   # it would be interesting looking how vegetation changed in the past 8 years
 
 
 ## Copernicus data with a resolution of 300m x300m per pixel
- #data on https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+ ##data on https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
 
 ## in order to examine the spatial extent of vegetation, FCOVER data are needed
  # FCOVER: Fraction of green Vegetation Cover
@@ -47,15 +46,14 @@ fcoverlist # 3 images of global FCOVER for the years 2014, 2018,2022
 fcover_rast <- lapply(fcoverlist, raster)
 fcover_rast
 
-##let's create a stack, concatenating the files as a single one
+##let's create a stack, concatenating the images as a single one
 fcover_stack <- stack(fcover_rast)
 fcover_stack
 
 plot(fcover_stack)
-
 ## $ symbol to select one of the images, through it's name
 
-##Being the name "Fraction.of.green.Vegetation.Cover.333m.1/2/3 too long, renaming them could be useful
+ #Being the name "Fraction.of.green.Vegetation.Cover.333m.1/2/3 too long, renaming them could be useful
 names(fcover_stack) <- c("fcover.300.1","fcover.300.2", "fcover.300.3")
 
 FCOVER2014 <- fcover_stack$fcover.300.1
@@ -84,7 +82,7 @@ dev.off()
 
 
 ##let's plot them through ggplot
- # using viridis color scale, every shade of color can be appreciated by colorblind people
+ # using viridis color scale, colors can be seen by colorblind people
 
 Green2014 <-ggplot()+
   geom_raster(Borneo2014, mapping= aes(x=x,y=y, fill= fcover.300.1))+
@@ -110,19 +108,19 @@ ggexport(Green2022, filename = "Borneo2022_ggplot.png", width = 1800, height = 1
 Green2014 + Green2018 + Green2022
 # vertically
 Green2014/Green2018/Green2022
-
 # horizontally could be better, let's export it
 FCOVER_horizon <- Green2014 + Green2018 + Green2022
 ggexport(FCOVER_horizon, filename = "FCOVER_horizon_comparison.png", width = 3000, height= 1000, res = 300)
 
 ## It would be interesting noticing the difference in FCOVER in one plot, let's try
- # The difference between 2022 and 2018 should be more evident, data in those year are more consistent
+ # The difference between 2022 and 2018 should be more evident, data in those year were more consistent
 
 FCOVER_diff <- (Borneo2022 - Borneo2018)
 plot(FCOVER_diff)
 
-#changing the color could be useful to understand better the shift
-cldif = colorRampPalette(c("red3", "khaki1", "seagreen")) (100)
+##changing the color would be useful to understand better the shift
+ # red meaning deforestation, grey meaning no substantial changes, green meaning more forest cover
+cldif = colorRampPalette(c("red", "snow3", "springgreen4")) (100)
 plot(FCOVER_diff, col =cldif, main = "FCOVER difference 2022-2018")
 
 #let's export the FCOVER difference
@@ -212,15 +210,23 @@ NDVI2014 <- NDVI_stack$NDVI.300.1
 NDVI2018 <- NDVI_stack$NDVI.300.2
 NDVI2022 <- NDVI_stack$NDVI.300.3
 
-#using the same coordinates for Borneo, let's crop the interested area
+## click(NDVI2014) 
+ # there are background values when plotting NDVI so let's use click function and click on them to understand the value
+ # then transform them into NA, in order to remove them
+NDVI2014_def <- calc(NDVI2014, fun=function(x){x[x>0.935] <- NA;return(x)})
+NDVI2018_def <- calc(NDVI2018, fun=function(x){x[x>0.935] <- NA;return(x)})
+NDVI2022_def <- calc(NDVI2022, fun=function(x){x[x>0.935] <- NA;return(x)})
+## calc function Calculate values for a new Raster* object from another Raster* object, using a formula.
+ # now we can plot NDVI without background value
 
-NDVI_Borneo2014 <- crop(NDVI2014, ext)
+##using the same coordinates for Borneo, let's crop the interested area
+NDVI_Borneo2014 <- crop(NDVI2014_def, ext)
 plot(NDVI_Borneo2014)
 
-NDVI_Borneo2018 <- crop(NDVI2018, ext)
+NDVI_Borneo2018 <- crop(NDVI2018_def, ext)
 plot(NDVI_Borneo2018)
 
-NDVI_Borneo2022 <- crop(NDVI2022, ext)
+NDVI_Borneo2022 <- crop(NDVI2022_def, ext)
 plot(NDVI_Borneo2022)
 
 ##Normalized Difference Vegetation Index (NDVI) quantifies vegetation by measuring the difference 
@@ -230,10 +236,10 @@ plot(NDVI_Borneo2022)
  #NDVI close to 1 represents living healthy vegetation. 
 
 ##let's create a colorRampPalette 
- #with close to zero values represented by brown (similar to bare soil)
+ #with close to zero values represented by yellow
  #and close to one values represented by green (similar to healthy vegetation)
 
-NDVI_palette <- colorRampPalette(c("tan3","olivedrab1", "green4")) (100)
+NDVI_palette <- colorRampPalette(c("gold","olivedrab3", "darkgreen")) (100)
 
 ##let's plot and export for each year
 
@@ -340,4 +346,4 @@ plot(NW_FC_Borneo_diff, col = cldif, main = "NorthWest Borneo FCOVER difference"
 plot(NW_NDVI_Borneo_diff, col = cldif, main = "NorthWest Borneo NDVI difference")
 dev.off()
 
-############Good Job for a rookie###########################################################################
+#######################################################################################
