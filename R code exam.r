@@ -7,7 +7,7 @@ install.packages("raster")      # to import files in R, and for modeling spatial
 install.packages("ncdf4")       # to open Copernicus data with nc extention
 install.packages("ggplot2")     # to plot data with ggplot function
 install.packages("patchwork")   # to plot together various plots
-install.packages("viridis")     # viridis palette for plots
+install.packages("viridis")     # viridis palette for plots, it allows colorblind people to appreciate every color shade
 install.packages("ggpubr")      #To export ggplots
 install.packages("RStoolbox")   # for remote sensing processing and analysis
 
@@ -26,9 +26,10 @@ library(ggpubr)
 ## let's set the working directory
 setwd("C:/Users/salde/Desktop/Monitoring Project")
 
-## the aim of this project it is showing the difference in extent and greenness,
+## the aim of this project it is showing the difference in extent and greenness of vegetation,
  # in the island of Borneo, divided among Malaysia, Brunei and Indonesia between 2014, 2018 and 2022
-## Borneo is famous for its iconic endemic species, above all orangutan, but it is threatened by high deforestation rates,
+## Borneo is famous for its iconic endemic species, above all Borneo Orangutan and Borneo pigmy elephant, but it is threatened by high deforestation rates,
+ # due to palm oil intensive cultivation
    # it would be interesting looking how vegetation changed in the past 8 years
 
 
