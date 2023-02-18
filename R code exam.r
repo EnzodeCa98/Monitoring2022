@@ -211,7 +211,14 @@ NDVI2014 <- NDVI_stack$NDVI.300.1
 NDVI2018 <- NDVI_stack$NDVI.300.2
 NDVI2022 <- NDVI_stack$NDVI.300.3
 
-## click(NDVI2014) 
+plot(NDVI2014, main = "Global NDVI 2014")
+
+#color of the sea makes more challenging analyzing patterns and mainland boarders
+png("Global_NDVI_2014.png", width = 3200, height = 1800, res = 300)
+plot(NDVI2014, main = "Global NDVI 2014")
+dev.off()
+
+## click(NDVI2014)// (NDVI2018) // (NDVI2022)
  # there are background values when plotting NDVI so let's use click function and click on them to understand the value
  # then transform them into NA, in order to remove them
 NDVI2014_def <- calc(NDVI2014, fun=function(x){x[x>0.935] <- NA;return(x)})
