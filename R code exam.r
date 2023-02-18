@@ -9,7 +9,6 @@ install.packages("ggplot2")     # to plot data with ggplot function
 install.packages("patchwork")   # to plot together various plots
 install.packages("viridis")     # viridis palette for plots, it allows colorblind people to appreciate every color shade
 install.packages("ggpubr")      #To export ggplots
-install.packages("RStoolbox")   # for remote sensing processing and analysis
 
 
 ## let's recall the packages
@@ -19,7 +18,6 @@ library(ncdf4)
 library(ggplot2)
 library(patchwork)
 library(viridis)
-library(RStoolbox)
 library(ggpubr)
 
 
