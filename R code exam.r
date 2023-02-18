@@ -61,24 +61,25 @@ FCOVER2014 <- fcover_stack$fcover.300.1
 FCOVER2018 <- fcover_stack$fcover.300.2
 FCOVER2022 <- fcover_stack$fcover.300.3
 
+
 ## time to crop the plot surrounding Borneo island, inserting its coordinates
 ext <- c(108.7196, 119.3383,-4.2573, 7.1279)
 
 Borneo2014 <- crop(FCOVER2014, ext)
-plot(Borneo2014)
+plot(Borneo2014, main = "Borneo FCOVER 2014")
 
 Borneo2018 <- crop(FCOVER2018, ext)
-plot(Borneo2018)
+plot(Borneo2018, main = "Borneo FCOVER 2018")
 
 Borneo2022 <- crop(FCOVER2022, ext)
-plot(Borneo2022)
+plot(Borneo2022, main = "Borneo FCOVER 2022")
 
-##let's export them in PNG, thorugh png and dev.off
+##let's export them in PNG, through png and dev.off
 png("Borneo_FCOVER_years.png", width = 1800, height = 1500, res = 300)
 par(mfrow = c(1,3))
-plot(Borneo2014)
-plot(Borneo2018)
-plot(Borneo2022)
+plot(Borneo2014, main = "Borneo FCOVER 2014")
+plot(Borneo2018, main = "Borneo FCOVER 2018")
+plot(Borneo2022, main = "Borneo FCOVER 2018")
 dev.off()
 
 
