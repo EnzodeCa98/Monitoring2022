@@ -121,7 +121,8 @@ FCOVER_diff <- (Borneo2022 - Borneo2018)
 plot(FCOVER_diff)
 
 ##changing the color would be useful to understand better the shift
- # red meaning deforestation, grey meaning no substantial changes, green meaning more forest cover
+ # red meaning deforestation, grey meaning no substantial changes
+ # green meaning more forest cover
 cldif = colorRampPalette(c("red", "snow3", "springgreen4")) (100)
 plot(FCOVER_diff, col =cldif, main = "FCOVER difference 2022-2018")
 
