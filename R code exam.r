@@ -26,10 +26,6 @@ setwd("C:/Users/salde/Desktop/Monitoring Project")
 
 ## the aim of this project it is showing the difference in extent and greenness of vegetation,
  # in the island of Borneo, divided among Malaysia, Brunei and Indonesia between 2014, 2018 and 2022
-## Borneo is famous for its iconic endemic species, above all Borneo Orangutan and Borneo pigmy elephant, but it is threatened by high deforestation rates,
- # due to palm oil intensive cultivation
-   # it would be interesting looking how vegetation changed in the past 8 years
-
 
 ## Copernicus data with a resolution of 300m x300m per pixel
  ##data on https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
@@ -59,8 +55,7 @@ FCOVER2014 <- fcover_stack$fcover.300.1
 FCOVER2018 <- fcover_stack$fcover.300.2
 FCOVER2022 <- fcover_stack$fcover.300.3
 
-
-## time to crop the plot surrounding Borneo island, inserting its coordinates
+## let's plot Borneo island, inserting its coordinates through crop function
 ext <- c(108.7196, 119.3383,-4.2573, 7.1279)
 
 Borneo2014 <- crop(FCOVER2014, ext)
@@ -239,9 +234,6 @@ plot(NDVI_Borneo2022)
 
 ##Normalized Difference Vegetation Index (NDVI) quantifies vegetation by measuring the difference 
  #between near-infrared (which healthy vegetation strongly reflects) and red light (which healthy vegetation absorbs).
- #NDVI always ranges from -1 to +1
- #NDVI values close to zero represent bare soil, 
- #NDVI close to 1 represents living healthy vegetation. 
 
 ##let's create a colorRampPalette 
  #with close to zero values represented by yellow
