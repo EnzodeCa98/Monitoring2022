@@ -1,5 +1,7 @@
 ## R project for Monitoring Ecosystem Changes and Functioning Exam ##
 
+## the aim of this project it is showing the difference in extent and greenness of vegetation,
+ # in the island of Borneo, divided among Malaysia, Brunei and Indonesia between 2014, 2018 and 2022
 
 ## let's install necessary packages
 
@@ -20,12 +22,8 @@ library(patchwork)
 library(viridis)
 library(ggpubr)
 
-
 ## let's set the working directory
 setwd("C:/Users/salde/Desktop/Monitoring Project")
-
-## the aim of this project it is showing the difference in extent and greenness of vegetation,
- # in the island of Borneo, divided among Malaysia, Brunei and Indonesia between 2014, 2018 and 2022
 
 ## Copernicus data with a resolution of 300m x300m per pixel
  ##data on https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
